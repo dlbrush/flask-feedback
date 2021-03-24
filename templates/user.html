@@ -9,4 +9,26 @@
 <p><strong>First name: </strong>{{user.first_name}}</p>
 <p><strong>Last name: </strong>{{user.last_name}}</p>
 <p><strong>Email address: </strong>{{user.email}}</p>
+
+{% if feedback %}
+<h3>Feedback</h3>
+    {% for post in feedback %}
+    <div>
+        <h5>{{post.title}}</h5>
+        <p>{{post.content}}</p>
+        {% if session['username'] == user.username %}
+        <div>
+            <a class='btn btn-primary' href="/feedback/{{post.id}}/update">Edit</a>
+            <a class='btn btn-danger' href="/feedback/{{post.id}}/delete">Delete</a>
+        </div>
+        {% endif %}
+    </div>
+    {% endfor %}
+{% endif %}
+
+{% if session['username'] == user.username %}
+<a class='d-block btn btn-success' href="/users/{{user.username}}/feedback/add">Add feedback</a>
+<a class='d-block btn btn-danger' href="/users/{{user.username}}/delete">Delete user</a>
+{% endif %}
+
 {% endblock %}

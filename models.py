@@ -11,10 +11,38 @@ def connect_db(app):
     db.app = app
     db.init_app(app)
 
+class Feedback(db.Model):
+    """Stores data about feedback left in the app."""
+
+    __tablename__ = 'feedback'
+
+    id = db.Column(
+        db.Integer,
+        primary_key = True,
+        autoincrement = True
+    )
+
+    title = db.Column(
+        db.String(100),
+        nullable = False
+    )
+
+    content = db.Column(
+        db.Text,
+        nullable = False
+    )
+
+    username = db.Column(
+        db.String,
+        db.ForeignKey('users.username')
+    )
+
+    user = db.relationship('User', backref='feedback')
+
 class User(db.Model):
     """Defines a user of the app in our database"""
 
-    __tablename__: "users"
+    __tablename__ = 'users'
 
     username = db.Column(
         db.String(20),
@@ -51,3 +79,5 @@ class User(db.Model):
 
     def authenticate(self, password):
         return bcrypt.check_password_hash(self.password, password)
+
+
