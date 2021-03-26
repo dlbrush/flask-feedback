@@ -1,0 +1,14 @@
+{% extends 'form.html' %}
+
+{% block title %}
+Edit feedback
+{% endblock %}
+
+{% block overform %}
+<h1>Update feedback</h1>
+{% endblock%}
+
+{% block button %}
+<button type="submit" class="btn btn-success my-2">Update feedback</button>
+<a class="btn btn-primary" href="/users/{{username}}">Cancel</a>
+{% endblock %}

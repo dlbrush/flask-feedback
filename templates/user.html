@@ -13,13 +13,15 @@
 {% if feedback %}
 <h3>Feedback</h3>
     {% for post in feedback %}
-    <div>
+    <div class="border border-secondary rounded my-2 p-3">
         <h5>{{post.title}}</h5>
         <p>{{post.content}}</p>
         {% if session['username'] == user.username %}
         <div>
             <a class='btn btn-primary' href="/feedback/{{post.id}}/update">Edit</a>
-            <a class='btn btn-danger' href="/feedback/{{post.id}}/delete">Delete</a>
+            <form class='d-inline' action="/feedback/{{post.id}}/delete" method="POST">
+                <button class='btn btn-danger'>Delete</a>
+            </form>
         </div>
         {% endif %}
     </div>
@@ -27,8 +29,10 @@
 {% endif %}
 
 {% if session['username'] == user.username %}
-<a class='d-block btn btn-success' href="/users/{{user.username}}/feedback/add">Add feedback</a>
-<a class='d-block btn btn-danger' href="/users/{{user.username}}/delete">Delete user</a>
+<a class='btn btn-success my-2' href="/users/{{user.username}}/feedback/add">Add feedback</a>
+<form action="{{user.username}}/delete" method="POST">
+    <button class='btn btn-danger my-1'>Delete user</a>
+</form>
 {% endif %}
 
 {% endblock %}
